@@ -10,6 +10,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/Home">Home</RouterLink>
         <RouterLink to="/registrasi">registrasi</RouterLink>
         <RouterLink to="/login">check</RouterLink>
+        <RouterLink to="/check">check2</RouterLink>
       </nav>
     </div>
   </header>

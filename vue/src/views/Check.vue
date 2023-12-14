@@ -1,18 +1,15 @@
 <template>
-  <div class="channel-container">
+  <div class="Peserta-container">
     <h2>Check</h2>
     <ul>
-      <button
-        v-for="channel in Channels"
-        :key="channel.id"
-        @click="goToChannel(channel.id)"
-        class="channel-button"
-      >
-        {{ channel.nama }}
-      </button>
+      <li v-for="peserta in pesertas" :key="peserta.id">
+        <ol>nama: {{ peserta.nama }} </ol>
+        <ol>email: {{ peserta.email }} </ol>
+        <ol>asal sekolah: {{ peserta.asalSekolah }} </ol>
+        <ol>status: {{ peserta.status }}</ol> 
+        <h2>------------------------------------------</h2>
+    </li>
     </ul>
-
-    <!-- Add the logout button -->
     <button @click="handleLogout" class="logout-button">Logout</button>
   </div>
 </template>
@@ -23,12 +20,13 @@ import { useRouter } from 'vue-router'
 
 export default {
   setup() {
-    const Channels = ref([])
+    const peserta = ref('')
+    const pesertas = ref([])
     const router = useRouter()
 
-    const fetchChannels = async () => {
+    const fetchPesertas = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/Channel', {
+        const response = await fetch('http://localhost:3000/api/peserta', {
           method: 'GET',
           credentials: 'include',
           headers: {
@@ -39,20 +37,16 @@ export default {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
         const data = await response.json()
-        Channels.value = data.docs
+        pesertas.value = data.docs
       } catch (error) {
         console.error(error)
-        alert('Terjadi kesalahan saat mengambil data Channel.')
+        alert('Terjadi kesalahan saat mengambil data Peserta.')
       }
-    }
-
-    const goToChannel = (channelId) => {
-      router.push({ name: 'channelname', params: { id: channelId } })
     }
 
     const handleLogout = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/Sender/logout', {
+        const response = await fetch('http://localhost:3000/api/peserta/logout', {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -72,22 +66,20 @@ export default {
       }
     };
 
+
     onMounted(() => {
-      fetchChannels();
+      fetchPesertas();
     })
 
-    return { Channels, goToChannel, handleLogout }
+    return { peserta, pesertas, handleLogout }
   },
 }
 </script>
 
-<style scoped>
-/* Your existing styles */
-</style>
 
 
 <style scoped>
-.channel-container {
+.Peserta-container {
   max-width: 600px;
   margin: 0 auto;
 }
@@ -102,7 +94,7 @@ ul {
   padding: 0;
 }
 
-.channel-button {
+.Peserta-button {
   display: block;
   width: 100%;
   padding: 10px;
@@ -117,7 +109,7 @@ ul {
   transition: background-color 0.3s;
 }
 
-.channel-button:hover {
+.Peserta-button:hover {
   background-color: #008e5f;
 }
 

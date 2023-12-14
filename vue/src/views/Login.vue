@@ -72,7 +72,7 @@
   
   const handleLogin = async () => {
     try {
-      const resp = await fetch("http://localhost:3000/api/Sender/login", {
+      const resp = await fetch("http://localhost:3000/api/peserta/login", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -92,7 +92,7 @@
       console.log(user);
   
       // Redirect to the 'channel' route after successful login
-      router.push("/channel");
+      router.push("/check");
   
     } catch (error) {
       alert("Sign In Error " + error.message);
